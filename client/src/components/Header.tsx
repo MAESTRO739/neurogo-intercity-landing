@@ -14,7 +14,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-border">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -22,7 +22,7 @@ const Header = () => {
             <div className="w-8 h-8 gradient-accent rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">N</span>
             </div>
-            <span className="text-xl font-bold gradient-primary bg-clip-text text-transparent">
+            <span className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
               NeuroGO
             </span>
           </div>
@@ -42,7 +42,7 @@ const Header = () => {
 
           {/* Phone */}
           <div className="hidden md:block">
-            <Button variant="phone" size="lg" className="flex items-center  bg-violet-600 text-white px-6 py-2 rounded-lg hover:bg-violet-700 transition-colors">
+            <Button variant="phone" size="lg" className="flex items-center bg-violet-600 text-white px-6 py-2 rounded-lg hover:bg-violet-700 transition-colors">
               <Phone className="w-4 h-4" />
               +7 (800) 300-00-00
             </Button>

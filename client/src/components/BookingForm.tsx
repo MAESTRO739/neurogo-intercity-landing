@@ -1,9 +1,5 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { MapPin, Calendar, Clock, Car } from 'lucide-react';
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -11,91 +7,99 @@ const BookingForm = () => {
     to: '',
     date: '',
     time: '',
-    carClass: ''
+    carClass: 'comfort'
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the data to your backend
-    console.log('Booking data:', formData);
-    alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+    console.log('Booking form submitted:', formData);
+    alert('Спасибо! Мы свяжемся с вами в ближайшее время для подтверждения заказа.');
   };
 
   return (
-    <Card id="booking-form" className="w-full max-w-md glass-effect border-white/20">
-      <CardContent className="p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Забронировать поездку</h3>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="from" className="text-white/90">Откуда</Label>
-            <Input
-              id="from"
+    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 w-full">
+      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
+        Быстрый заказ поездки
+      </h3>
+
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+        <div className="space-y-4">
+          <div className="relative">
+            <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Откуда"
               value={formData.from}
               onChange={(e) => setFormData({ ...formData, from: e.target.value })}
-              placeholder="Адрес отправления"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
               required
             />
           </div>
 
-          <div>
-            <Label htmlFor="to" className="text-white/90">Куда</Label>
-            <Input
-              id="to"
+          <div className="relative">
+            <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Куда"
               value={formData.to}
               onChange={(e) => setFormData({ ...formData, to: e.target.value })}
-              placeholder="Адрес назначения"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
               required
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label htmlFor="date" className="text-white/90">Дата</Label>
-              <Input
-                id="date"
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="relative">
+              <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <input
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="bg-white/10 border-white/20 text-white"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="time" className="text-white/90">Время</Label>
-              <Input
-                id="time"
+
+            <div className="relative">
+              <Clock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <input
                 type="time"
                 value={formData.time}
                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                className="bg-white/10 border-white/20 text-white"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <Label className="text-white/90">Класс автомобиля</Label>
-            <Select value={formData.carClass} onValueChange={(value) => setFormData({ ...formData, carClass: value })}>
-              <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                <SelectValue placeholder="Выберите класс" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="economy">Эконом</SelectItem>
-                <SelectItem value="comfort">Комфорт</SelectItem>
-                <SelectItem value="business">Бизнес</SelectItem>
-                <SelectItem value="minivan">Минивэн</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="relative">
+            <Car className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            <select
+              value={formData.carClass}
+              onChange={(e) => setFormData({ ...formData, carClass: e.target.value })}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent appearance-none bg-white"
+            >
+              <option value="economy">Эконом</option>
+              <option value="comfort">Комфорт</option>
+              <option value="business">Бизнес</option>
+              <option value="minivan">Минивэн</option>
+            </select>
           </div>
+        </div>
 
-          <Button type="submit" variant="secondary" size="lg" className="w-full font-semibold">
-            Оформить заказ
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-violet-600 to-teal-600 text-white py-3 sm:py-4 rounded-lg hover:from-violet-700 hover:to-teal-700 transition-all font-medium text-base sm:text-lg"
+        >
+          Заказать поездку
+        </button>
+
+        <p className="text-sm text-gray-500 text-center">
+          После отправки заявки мы свяжемся с вами для уточнения деталей
+        </p>
+      </form>
+    </div>
   );
 };
 

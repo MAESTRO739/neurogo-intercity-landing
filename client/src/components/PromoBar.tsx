@@ -1,9 +1,9 @@
 const PromoBar = () => {
   return (
-    <div className="gradient-accent py-3 text-center text-white">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <span className="text-sm font-medium">
+    <div className="bg-violet-600 text-white py-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center space-x-4 text-sm sm:text-base">
+          <span className="text-center">
             Первая поездка? Используйте промокод <strong>NEURO20</strong> и получите скидку 20%.
           </span>
         </div>
