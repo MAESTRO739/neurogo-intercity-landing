@@ -6,11 +6,11 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Почему Мы', href: '#why' },
-    { name: 'Цены', href: '#pricing' },
+    { name: 'Почему NeuroGO', href: '#why' },
+    { name: 'Тарифы', href: '#pricing' },
     { name: 'Трансферы', href: '#transfers' },
     { name: 'Как это работает', href: '#how-it-works' },
-    { name: 'Отзывы', href: '#testimonials' }
+    { name: 'Отзывы', href: '#testimonials' },
   ];
 
   return (
@@ -18,14 +18,14 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 gradient-accent rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">N</span>
             </div>
             <span className="text-xl font-bold gradient-primary bg-clip-text text-transparent">
               NeuroGO
             </span>
-          </a>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -42,9 +42,9 @@ const Header = () => {
 
           {/* Phone */}
           <div className="hidden md:block">
-            <Button variant="phone" size="lg" className="gap-2">
+            <Button variant="phone" size="lg" className="flex items-center  bg-violet-600 text-white px-6 py-2 rounded-lg hover:bg-violet-700 transition-colors">
               <Phone className="w-4 h-4" />
-+7 (800) 300-00-00
+              +7 (800) 300-00-00
             </Button>
           </div>
 
@@ -75,9 +75,9 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <Button variant="phone" size="lg" className="gap-2 mt-4">
+              <Button variant="phone" size="lg" className="flex items-center  bg-violet-600 text-white px-6 py-2 rounded-lg hover:bg-violet-700 transition-colors">
                 <Phone className="w-4 h-4" />
-  +7 (800) 300-00-00
+                +7 (800) 300-00-00
               </Button>
             </nav>
           </div>

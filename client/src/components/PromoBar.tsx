@@ -1,10 +1,4 @@
-import { Button } from '@/components/ui/button';
-
 const PromoBar = () => {
-  const scrollToForm = () => {
-    document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="gradient-accent py-3 text-center text-white">
       <div className="container mx-auto px-4">
@@ -12,14 +6,6 @@ const PromoBar = () => {
           <span className="text-sm font-medium">
             Первая поездка? Используйте промокод <strong>NEURO20</strong> и получите скидку 20%.
           </span>
-          <Button 
-            variant="secondary" 
-            size="sm" 
-            onClick={scrollToForm}
-            className="text-xs"
-          >
-            Заказать
-          </Button>
         </div>
       </div>
     </div>
