@@ -6,13 +6,11 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Главная', href: '#hero' },
-    { name: 'Почему NeuroGO', href: '#why' },
-    { name: 'Тарифы', href: '#pricing' },
+    { name: 'Почему Мы', href: '#why' },
+    { name: 'Цены', href: '#pricing' },
     { name: 'Трансферы', href: '#transfers' },
     { name: 'Как это работает', href: '#how-it-works' },
-    { name: 'Отзывы', href: '#testimonials' },
-    { name: 'Контакты', href: '#contacts' }
+    { name: 'Отзывы', href: '#testimonials' }
   ];
 
   return (
@@ -20,14 +18,14 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <a href="#hero" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 gradient-accent rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">N</span>
             </div>
             <span className="text-xl font-bold gradient-primary bg-clip-text text-transparent">
               NeuroGO
             </span>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -46,7 +44,7 @@ const Header = () => {
           <div className="hidden md:block">
             <Button variant="phone" size="lg" className="gap-2">
               <Phone className="w-4 h-4" />
-              +7 (999) 123-45-67
++7 (800) 300-00-00
             </Button>
           </div>
 
@@ -79,7 +77,7 @@ const Header = () => {
               ))}
               <Button variant="phone" size="lg" className="gap-2 mt-4">
                 <Phone className="w-4 h-4" />
-                +7 (999) 123-45-67
+  +7 (800) 300-00-00
               </Button>
             </nav>
           </div>
