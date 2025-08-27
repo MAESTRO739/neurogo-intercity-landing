@@ -1,91 +1,71 @@
-import { Clock, Shield, Car, Users, Baby, Luggage, MapPin } from 'lucide-react';
+import { Clock, Shield, Car, Baby, Luggage, MapPin, Award } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const WhySection = () => {
-  const reasons = [
-    {
-      icon: Clock,
-      title: 'Точность во времени',
-      description: 'Прибываем минута в минуту. Наши водители всегда приезжают заранее.'
-    },
-    {
-      icon: Shield,
-      title: 'Гарантия качества',
-      description: 'Все автомобили проходят регулярный техосмотр. Водители с опытом от 5 лет.'
-    },
-    {
-      icon: Car,
-      title: 'Комфортные автомобили',
-      description: 'Современные машины с кондиционером, Wi-Fi и зарядками для устройств.'
-    },
-    {
-      icon: Users,
-      title: 'Любые расстояния',
-      description: 'От города до города, в аэропорт, на дачу — везде, куда нужно добраться.'
-    }
-  ];
-
-  const services = [
-    {
-      icon: Baby,
-      title: 'Детские кресла',
-      description: 'Безопасные детские кресла любых возрастов'
-    },
-    {
-      icon: Luggage,
-      title: 'Помощь с багажом',
-      description: 'Водитель поможет с погрузкой и выгрузкой'
-    },
-    {
-      icon: MapPin,
-      title: 'Остановки в пути',
-      description: 'Можем сделать остановки по вашему маршруту'
-    }
-  ];
-
   return (
     <section id="why" className="py-20 bg-muted">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">
             Почему выбирают <span className="gradient-primary bg-clip-text text-transparent">NeuroGO</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Мы создали сервис, которому можно доверить самые важные поездки
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Всё для того, чтобы поездка была комфортной и вовремя
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {reasons.map((reason, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <reason.icon className="w-8 h-8 text-white" />
+        {/* 4 key reasons — light cards, consistent rhythm */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {[
+            { icon: Clock, title: 'Пунктуальность', desc: 'Водители приезжают заранее' },
+            { icon: Shield, title: 'Качество', desc: 'Авто проходят регулярный техосмотр' },
+            { icon: Car, title: 'Комфорт', desc: 'Современные машины с Wi-Fi и зарядками' },
+            { icon: Award, title: 'Опыт', desc: 'Стаж работы водителей от 5 лет' },
+          ].map((r, i) => (
+            <Card
+              key={i}
+              className="h-full transition-shadow hover:shadow-md border-border/70"
+            >
+              <CardContent className="p-6 text-center md:text-left">
+                <div className="mx-auto md:mx-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#6E56CF] to-[#11C76F] text-white flex items-center justify-center mb-4">
+                  <r.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{reason.title}</h3>
-                <p className="text-muted-foreground text-sm">{reason.description}</p>
+                <h3 className="text-base md:text-lg font-semibold mb-1">{r.title}</h3>
+                <p className="text-sm text-muted-foreground">{r.desc}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold mb-8">Дополнительные услуги</h3>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <div key={index} className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
-              <div className="w-12 h-12 gradient-secondary rounded-lg flex items-center justify-center flex-shrink-0">
-                <service.icon className="w-6 h-6 text-white" />
+        {/* Add-ons — single cohesive panel with chips */}
+        <Card className="border-border/70">
+          <CardContent className="p-5 md:p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="text-center md:text-left">
+                <h4 className="text-lg font-semibold">Дополнительные опции</h4>
+                <p className="text-sm text-muted-foreground">
+                  Добавьте при оформлении заказа — учтём в расчёте.
+                </p>
               </div>
-              <div>
-                <h4 className="font-semibold">{service.title}</h4>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
+
+              <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5">
+                {[
+                  { icon: Baby, label: 'Детские кресла' },
+                  { icon: Luggage, label: 'Помощь с багажом' },
+                  { icon: MapPin, label: 'Остановки по пути' },
+                ].map((s, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-sm"
+                  >
+                    <s.icon className="w-4 h-4 text-foreground/80" />
+                    {s.label}
+                  </span>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Calendar, Clock, Car } from 'lucide-react';
+import { MapPin, Calendar, Clock, Car, Tag, ChevronDown, ChevronUp } from 'lucide-react';
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -7,8 +7,12 @@ const BookingForm = () => {
     to: '',
     date: '',
     time: '',
-    carClass: 'comfort'
+    carClass: 'comfort',
+    promoCode: '',
+    childSeat: false
   });
+
+  const [showPromoCode, setShowPromoCode] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,6 +89,48 @@ const BookingForm = () => {
               <option value="business">Бизнес</option>
               <option value="minivan">Минивэн</option>
             </select>
+          </div>
+
+          {/* Child Seat Checkbox */}
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={formData.childSeat}
+                onChange={(e) => setFormData({ ...formData, childSeat: e.target.checked })}
+                className="w-4 h-4 text-violet-600 bg-gray-100 border-gray-300 rounded focus:ring-violet-500 focus:ring-2"
+              />
+              <span className="text-gray-700 font-medium">Детское кресло</span>
+            </label>
+          </div>
+
+          {/* Expandable Promo Code */}
+          <div className="border-t border-gray-200 pt-4">
+            <button
+              type="button"
+              onClick={() => setShowPromoCode(!showPromoCode)}
+              className="flex items-center justify-between w-full text-left text-gray-600 hover:text-violet-600 transition-colors"
+            >
+              <span className="font-medium">У меня есть промокод</span>
+              {showPromoCode ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
+            
+            {showPromoCode && (
+              <div className="mt-3 relative">
+                <Tag className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Введите промокод"
+                  value={formData.promoCode}
+                  onChange={(e) => setFormData({ ...formData, promoCode: e.target.value })}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                />
+              </div>
+            )}
           </div>
         </div>
 

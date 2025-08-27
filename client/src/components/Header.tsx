@@ -6,7 +6,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Почему NeuroGO', href: '#why' },
+    { name: 'Почему Мы', href: '#why' },
     { name: 'Тарифы', href: '#pricing' },
     { name: 'Трансферы', href: '#transfers' },
     { name: 'Как это работает', href: '#how-it-works' },
@@ -17,15 +17,15 @@ const Header = () => {
     <header className="sticky top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
+          {/* Logo (link to hero) */}
+          <a href="#hero" className="flex items-center gap-2">
             <div className="w-8 h-8 gradient-accent rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">N</span>
             </div>
-            <span className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <span className="text-2xl lg:text-3xl sm:text-2xl font-bold gradient-primary bg-clip-text text-transparent">
               NeuroGO
             </span>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
