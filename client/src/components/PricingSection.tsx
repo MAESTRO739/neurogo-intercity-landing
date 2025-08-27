@@ -1,100 +1,117 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check } from 'lucide-react';
+import React from 'react';
+import { Car, Users, Crown, Truck } from 'lucide-react';
 
-const PricingSection = () => {
+const Pricing = () => {
+  // Replace carClasses with a minimal, essential set
   const carClasses = [
     {
+      icon: <Car className="h-8 w-8" />,
       name: 'Эконом',
-      price: '35',
-      description: 'Chevrolet Lanos, Renault Logan',
-      features: ['4 места', 'Кондиционер', 'Радио']
+      pricePerKm: '25₽',
+      description: 'Седан эконом-класса',
+      highlights: ['Выгодно на дальних расстояниях'],
     },
     {
+      icon: <Car className="h-8 w-8" />,
       name: 'Комфорт',
-      price: '45',
-      description: 'Volkswagen Polo, Hyundai Solaris',
-      features: ['4 места', 'Климат-контроль', 'USB зарядка', 'Wi-Fi']
+      pricePerKm: '35₽',
+      description: 'Седан комфорт-класса',
+      highlights: ['Оптимальный баланс цены и сервиса'],
+      popular: true,
     },
     {
+      icon: <Crown className="h-8 w-8" />,
       name: 'Бизнес',
-      price: '65',
-      description: 'Toyota Camry, Volkswagen Passat',
-      features: ['4 места', 'Кожаный салон', 'Премиум аудио', 'Wi-Fi', 'Вода в салоне']
+      pricePerKm: '50₽',
+      description: 'Седан бизнес-класса',
+      highlights: ['Для деловых поездок'],
     },
     {
+      icon: <Truck className="h-8 w-8" />,
       name: 'Минивэн',
-      price: '55',
-      description: 'Volkswagen Caravelle, Ford Transit',
-      features: ['7-8 мест', 'Большой багажник', 'Кондиционер', 'USB зарядка']
-    }
+      pricePerKm: '40₽',
+      description: 'Просторный минивэн',
+      highlights: ['6–7 мест', 'Большой багаж'],
+    },
   ];
 
   return (
-    <section id="pricing" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="pricing" className="py-16 lg:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Тарифы и <span className="gradient-primary bg-clip-text text-transparent">классы автомобилей</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Тарифы и классы автомобилей
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Стоимость рассчитывается: расстояние × тариф за км + дополнительные услуги. 
-            Минимальная стоимость поездки — 1000 рублей.
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            Стоимость рассчитывается по формуле: расстояние × класс автомобиля + дополнительные услуги
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {carClasses.map((carClass, index) => (
-            <Card key={index} className="relative hover:shadow-xl transition-shadow">
-              {carClass.name === 'Комфорт' && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="gradient-accent text-white px-4 py-1 rounded-full text-sm font-medium">
+            <div 
+              key={index} 
+              className={`bg-white rounded-2xl p-7 shadow-lg hover:shadow-xl transition-shadow relative ${
+                carClass.popular ? 'ring-2 ring-violet-600 transform scale-105' : ''
+              }`}
+            >
+              {carClass.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-violet-600 to-teal-600 text-white px-6 py-2 rounded-full text-sm font-medium">
                     Популярный
                   </span>
                 </div>
               )}
-              <CardHeader className="text-center">
-                <CardTitle className="text-xl">{carClass.name}</CardTitle>
-                <div className="text-3xl font-bold gradient-primary bg-clip-text text-transparent">
-                  {carClass.price} ₽<span className="text-sm text-muted-foreground">/км</span>
+
+              <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 ${
+                carClass.popular 
+                  ? 'bg-gradient-to-r from-violet-600 to-teal-600 text-white' 
+                  : 'bg-gray-100 text-gray-600'
+              }`}>
+                {carClass.icon}
+              </div>
+
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {carClass.name}
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  {carClass.description}
+                </p>
+                <div className="text-3xl font-bold text-violet-600 mb-2">
+                  {carClass.pricePerKm}
                 </div>
-                <p className="text-sm text-muted-foreground">{carClass.description}</p>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {carClass.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-primary" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                <p className="text-sm text-gray-500">за километр</p>
+              </div>
+
+              <div className="flex flex-wrap justify-center text-center">
+                {carClass.highlights.map((h, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-4 py-2 text-sm font-medium"
+                  >
+                    {h}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
         <div className="mt-12 text-center">
-          <div className="bg-accent p-6 rounded-lg max-w-4xl mx-auto">
-            <h3 className="text-lg font-semibold mb-2">Примеры стоимости популярных маршрутов</h3>
-            <div className="grid md:grid-cols-3 gap-4 text-sm">
-              <div>
-                <strong>Москва → Домодедово:</strong><br />
-                Эконом: от 1,400 ₽ | Комфорт: от 1,800 ₽
-              </div>
-              <div>
-                <strong>Москва → Тула:</strong><br />
-                Эконом: от 7,000 ₽ | Комфорт: от 9,000 ₽
-              </div>
-              <div>
-                <strong>Москва → Калуга:</strong><br />
-                Эконом: от 6,300 ₽ | Комфорт: от 8,100 ₽
-              </div>
-            </div>
-          </div>
+          <p className="text-gray-600 mb-4">
+            * Ожидание — 5₽/мин после 15 минут бесплатного ожидания.
+          </p>
+          <a
+            href="#hero"
+            className="inline-block bg-violet-600 text-white px-8 py-4 rounded-lg hover:bg-violet-700 transition-colors font-medium"
+          >
+            Рассчитать точную стоимость
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-export default PricingSection;
+export default Pricing;

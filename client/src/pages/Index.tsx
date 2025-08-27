@@ -8,12 +8,13 @@ import HowItWorksSection from '@/components/HowItWorksSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Header />
       <PromoBar />
+      <Header />
       <HeroSection />
       <WhySection />
       <PricingSection />
@@ -22,6 +23,7 @@ const Index = () => {
       <TestimonialsSection />
       <CTASection />
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

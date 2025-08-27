@@ -23,18 +23,19 @@ const BookingForm = () => {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 w-full">
-      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
-        Быстрый заказ поездки
-      </h3>
-
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <div className="space-y-4">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
+            Узнать стоимость поездки
+          </h3>
+          
           <div className="relative">
             <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <input
               type="text"
               placeholder="Откуда"
               value={formData.from}
+
               onChange={(e) => setFormData({ ...formData, from: e.target.value })}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
               required
@@ -77,30 +78,33 @@ const BookingForm = () => {
             </div>
           </div>
 
-          <div className="relative">
-            <Car className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-            <select
-              value={formData.carClass}
-              onChange={(e) => setFormData({ ...formData, carClass: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent appearance-none bg-white"
-            >
-              <option value="economy">Эконом</option>
-              <option value="comfort">Комфорт</option>
-              <option value="business">Бизнес</option>
-              <option value="minivan">Минивэн</option>
-            </select>
-          </div>
+          {/* Car Class + Child Seat in one row */}
+          <div className="flex items-center gap-4">
+            <div className="relative flex-1">
+              <Car className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <select
+                value={formData.carClass}
+                onChange={(e) => setFormData({ ...formData, carClass: e.target.value })}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent appearance-none bg-white"
+              >
+                <option value="economy">Эконом</option>
+                <option value="comfort">Комфорт</option>
+                <option value="business">Бизнес</option>
+                <option value="minivan">Минивэн</option>
+              </select>
+            </div>
 
-          {/* Child Seat Checkbox */}
-          <div className="flex items-center gap-3">
-            <label className="flex items-center gap-2 cursor-pointer">
+            {/* Child Seat Checkbox */}
+            <label className="flex items-center gap-2 cursor-pointer whitespace-nowrap">
               <input
                 type="checkbox"
                 checked={formData.childSeat}
-                onChange={(e) => setFormData({ ...formData, childSeat: e.target.checked })}
+                onChange={(e) =>
+                  setFormData({ ...formData, childSeat: e.target.checked })
+                }
                 className="w-4 h-4 text-violet-600 bg-gray-100 border-gray-300 rounded focus:ring-violet-500 focus:ring-2"
               />
-              <span className="text-gray-700 font-medium">Детское кресло</span>
+              <span className="text-gray-700 font-medium text-sm">Детское кресло</span>
             </label>
           </div>
 
@@ -138,12 +142,8 @@ const BookingForm = () => {
           type="submit"
           className="w-full bg-gradient-to-r from-violet-600 to-teal-600 text-white py-3 sm:py-4 rounded-lg hover:from-violet-700 hover:to-teal-700 transition-all font-medium text-base sm:text-lg"
         >
-          Заказать поездку
+          Рассчитать стоимость
         </button>
-
-        <p className="text-sm text-gray-500 text-center">
-          После отправки заявки мы свяжемся с вами для уточнения деталей
-        </p>
       </form>
     </div>
   );
