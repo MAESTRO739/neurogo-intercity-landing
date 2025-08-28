@@ -2,8 +2,14 @@ import { Button } from '../components/ui/button';
 import { Phone, MessageCircle } from 'lucide-react';
 import BookingForm from './BookingForm';
 import PromoBar from './PromoBar';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import RotatingWord from '../components/ui/RotatingWord';
 
 const HeroSection = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const handlePhoneCall = () => (window.location.href = 'tel:+78003000000');
   const handleWhatsApp = () =>
     window.open('https://wa.me/78003000000?text=Здравствуйте! Хочу заказать поездку через NeuroGO', '_blank');
@@ -37,17 +43,38 @@ const HeroSection = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
             {/* Left */}
             <div className="text-white w-full lg:max-w-xl mx-auto">
-              <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] font-bold leading-tight mb-6">
-                Поездки между городами и в аэропорт —{' '}
-                <span className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] bg-clip-text text-transparent">
-                  без опозданий
-                </span>
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl text-white/85 mb-8 leading-relaxed">
-                Бронируйте заранее и приезжайте вовремя: комфортный транспорт и опытные водители.
-              </p>
+              <motion.h1
+                className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] font-bold leading-tight mb-3 sm:mb-4"
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                Поездки между городами и в аэропорт —{" "}
+                <RotatingWord
+                  words={[
+                    "без опозданий",
+                    "с комфортом",
+                    "с безопасностью",
+                    "по выгодной цене",
+                  ]}
+                />
+              </motion.h1>
 
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <motion.p
+                className="text-base sm:text-lg md:text-xl text-white/85 mb-8 leading-relaxed"
+                initial={{ y: 24, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.15, duration: 0.55 }}
+              >
+                Бронируйте заранее и приезжайте вовремя: комфортный транспорт и опытные водители.
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-3 md:gap-4"
+                initial={{ y: 28, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.25, duration: 0.55 }}
+              >
                 <Button
                   size="lg"
                   onClick={handlePhoneCall}
@@ -65,28 +92,48 @@ const HeroSection = () => {
                   <MessageCircle className="w-5 h-5" />
                   Заказать через WhatsApp
                 </Button>
-                </div>
+              </motion.div>
 
-              <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <motion.div
+                className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center"
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
+              >
                 {[
                   { n: '3 000+', t: 'Поездок в месяц' },
                   { n: '4.9', t: 'Рейтинг водителей' },
                   { n: '20+', t: 'Лет на рынке' },
                 ].map((s) => (
-                  <div key={s.t} className="bg-white/5 backdrop-blur rounded-xl p-4 border border-white/10">
+                  <motion.div
+                    key={s.t}
+                    variants={{
+                      hidden: { y: 20, opacity: 0 },
+                      show: { y: 0, opacity: 1 }
+                    }}
+                    transition={{ duration: 0.45 }}
+                    className="bg-white/5 backdrop-blur rounded-xl p-4 border border-white/10"
+                  >
                     <div className="text-2xl font-bold text-white">{s.n}</div>
                     <div className="text-sm text-white/80">{s.t}</div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             {/* Right (Booking Form) */}
-            <div className="w-full lg:w-auto flex justify-center lg:justify-end">
+            <motion.div
+              className="w-full lg:w-auto flex justify-center lg:justify-end"
+              initial={{ x: 60, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
               <div className="w-full max-w-md lg:max-w-none">
                 <BookingForm />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

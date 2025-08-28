@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 }
+
+/* animated gradient for the word "без опозданий" */
+.animated-gradient {
+  background-image: linear-gradient(90deg, #7B61FF, #4FB6FF, #00E6A8, #7B61FF);
+  background-size: 200% 100%;
+  animation: gradient-move 8s linear infinite;
+}
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* soft pulse for the small underline bar */
+@keyframes softpulse {
+  0%, 100% { opacity: 0.7; filter: drop-shadow(0 0 0px rgba(123,97,255,0.0)); }
+  50%     { opacity: 1;   filter: drop-shadow(0 0 8px rgba(123,97,255,0.35)); }
+}
+.animate-softpulse {
+  animation: softpulse 2.4s ease-in-out infinite;
+}

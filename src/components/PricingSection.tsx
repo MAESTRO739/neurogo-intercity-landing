@@ -30,7 +30,7 @@ const Pricing = () => {
       name: 'Минивэн',
       pricePerKm: '40₽',
       description: 'Просторный минивэн',
-      highlights: ['6–7 мест', 'Большой багаж'],
+      highlights: ['6–7 мест, большой багаж'],
     },
   ];
 
