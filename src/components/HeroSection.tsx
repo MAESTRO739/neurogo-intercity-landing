@@ -1,6 +1,6 @@
 import { Button } from '../components/ui/button';
 import { Phone, MessageCircle } from 'lucide-react';
-import BookingForm from './BookingForm';
+import BookingFlow from './BookingFlow';
 import PromoBar from './PromoBar';
 import { motion } from 'framer-motion';
 import RotatingWord from './ui/rotating-word';
@@ -121,7 +121,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <div className="w-full max-w-md lg:max-w-none">
-                <BookingForm />
+                <BookingFlow />
               </div>
             </motion.div>
           </div>
