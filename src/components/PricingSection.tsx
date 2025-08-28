@@ -1,6 +1,7 @@
 import React from 'react';
 import { Car, Crown, Truck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from './ui/button';
 
 const Pricing = () => {
   const carClasses = [
@@ -9,14 +10,12 @@ const Pricing = () => {
       name: 'Эконом',
       pricePerKm: '25₽',
       description: 'Седан эконом-класса',
-      highlights: ['Выгодно на дальних расстояниях'],
     },
     {
       icon: <Car className="h-8 w-8" />,
       name: 'Комфорт',
       pricePerKm: '35₽',
       description: 'Седан комфорт-класса',
-      highlights: ['Оптимальный баланс цены и сервиса'],
       popular: true,
     },
     {
@@ -24,14 +23,12 @@ const Pricing = () => {
       name: 'Бизнес',
       pricePerKm: '50₽',
       description: 'Седан бизнес-класса',
-      highlights: ['Для деловых поездок'],
     },
     {
       icon: <Truck className="h-8 w-8" />,
       name: 'Минивэн',
       pricePerKm: '40₽',
       description: 'Просторный минивэн',
-      highlights: ['6–7 мест, большой багаж'],
     },
   ];
 
@@ -98,22 +95,11 @@ const Pricing = () => {
                   {carClass.icon}
                 </div>
 
-                <div className="text-center mb-6">
+                <div className="text-center">
                   <h3 className="text-xl font-bold text-white mb-2">{carClass.name}</h3>
                   <p className="text-white/70 mb-4">{carClass.description}</p>
                   <div className="text-3xl font-bold text-[#7B61FF] mb-2">{carClass.pricePerKm}</div>
                   <p className="text-sm text-white/60">за километр</p>
-                </div>
-
-                <div className="flex flex-wrap justify-center text-center mt-auto gap-2">
-                  {carClass.highlights.map((h, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center rounded-full bg-white/[0.06] text-white/80 border border-white/10 px-4 py-2 text-sm font-medium"
-                    >
-                      {h}
-                    </span>
-                  ))}
                 </div>
               </div>
             </motion.div>
@@ -130,16 +116,17 @@ const Pricing = () => {
           >
             * Ожидание — 5₽/мин после 15 минут бесплатного ожидания.
           </motion.p>
-          <motion.a
-            href="#hero"
-            className="inline-block bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-8 py-4 rounded-lg font-medium shadow transition-all duration-300 hover:from-[#866EFF] hover:to-[#19F2B4] hover:shadow-lg hover:shadow-[#7B61FF]/30 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#7B61FF]/50 focus:ring-offset-2 focus:ring-offset-[#0A0E22] active:translate-y-0"
-            initial={{ y: 18, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
-          >
-            Рассчитать стоимость
-          </motion.a>
+          <motion.div
+          className="text-center"
+          initial={{ y: 18, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <Button size="lg" asChild className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white shadow hover:opacity-90">
+            <a href="#hero">Рассчитать стоимость</a>
+          </Button>
+        </motion.div>
         </div>
       </div>
     </section>

@@ -12,7 +12,7 @@ const HeroSection = () => {
 
   const handlePhoneCall = () => (window.location.href = 'tel:+78003000000');
   const handleWhatsApp = () =>
-    window.open('https://wa.me/78003000000?text=Здравствуйте! Хочу заказать поездку через NeuroGO', '_blank');
+    window.open('https://wa.me/79011000011?text=Здравствуйте! Хочу заказать поездку через NeuroGO', '_blank');
 
   return (
     <section id="hero" className="relative min-h-[calc(100vh-64px)] flex items-center justify-center overflow-hidden">
