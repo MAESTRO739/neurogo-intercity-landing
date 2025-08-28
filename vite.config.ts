@@ -21,6 +21,8 @@ export default defineConfig({
   },
   // Use the project root (default) so Vercel's Vite detection works without extra config.
   // Keep standard dist output so Vercel serves /dist automatically.
+  // Serve static assets (favicon, robots.txt, etc.) from src/public by mapping it as Vite's publicDir.
+  publicDir: path.resolve(__dirname, "src/public"),
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
