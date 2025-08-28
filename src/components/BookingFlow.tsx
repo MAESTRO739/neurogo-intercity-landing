@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { MapPin, Calendar, Clock, Car, Tag, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
+import { MapPin, Calendar, Clock, Car, Tag, ChevronDown, ChevronUp, Phone, Loader2 } from 'lucide-react';
 import SuggestInput from '@/components/SuggestInput';
 import DateInputRu from '@/components/ui/DateInputRu';
 import TimeInput24 from '@/components/ui/TimeInput24';
+import PhoneInputRu from './ui/phone-input-ru';
 
 
 type Mode = 'form' | 'confirm' | 'success';
@@ -37,7 +38,7 @@ const BookingFlow = () => {
   const [estimate, setEstimate] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const [phone, setPhone] = useState('');
+  const [phoneE164, setPhoneE164] = useState('');
   const [submitState, setSubmitState] = useState<'idle'|'submitting'|'done'>('idle');
 
   const [dateText, setDateText] = useState(''); // dd.mm.yyyy
@@ -136,12 +137,43 @@ const BookingFlow = () => {
 
   async function handlePlaceOrder() {
     if (!estimate) { setError('Сначала рассчитайте стоимость'); return; }
-    if (!phone || phone.replace(/\D/g,'').length < 10) { setError('Укажите телефон'); return; }
+    if (!/^\+7\d{10}$/.test(phoneE164)) { setError('Укажите корректный телефон в формате +7'); return; }
     setSubmitState('submitting');
-    setTimeout(() => {
+    try {
+      const API_BASE = import.meta.env.VITE_API_BASE || '';
+      const res = await fetch(`${API_BASE}/api/landing-orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: {
+            uri:  fromPick?.uri || undefined,
+            text: formData.from || undefined,
+            label: (fromPick?.label || formData.from || '').trim(),
+          },
+          to:   {
+            uri:  toPick?.uri || undefined,
+            text: formData.to || undefined,
+            label: (toPick?.label || formData.to || '').trim(),
+          },
+          datetimeLocal: `${formData.date}T${formData.time}`,
+          carClass: formData.carClass,       // "economy" | "comfort" | "business" | "minivan"
+          childSeat: formData.childSeat,
+          promoCode: formData.promoCode || undefined,
+          phone: phoneE164,
+          km,
+          price: estimate
+        })
+      });
+      const data = await res.json().catch(()=> ({}));
+      if (!res.ok) throw new Error(data?.error || 'Ошибка при оформлении заказа');
+      // можно сохранить детали заказа в стейт, чтобы показать в success
+      (window as any).__lastOrder = data; // опционально
       setSubmitState('done');
       setMode('success');
-    }, 600);
+    } catch (e:any) {
+      setError('Не удалось оформить заказ');
+      setSubmitState('idle');
+    }
   }
 
   // === STEP 1: WHITE FORM (unchanged visual style) ===
@@ -316,12 +348,10 @@ const BookingFlow = () => {
             Назад
           </button>
 
-          <input
-            type="tel"
-            value={phone}
-            onChange={(e)=>setPhone(e.target.value)}
-            placeholder="+7 ___ ___-__-__"
-            className="sm:col-span-1 rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+          <PhoneInputRu
+            valueE164={phoneE164}
+            onChangeE164={setPhoneE164}
+            leftIcon={<Phone className="h-5 w-5" />}
           />
 
           <button
@@ -353,7 +383,7 @@ const BookingFlow = () => {
       </p>
       <button
         type="button"
-        onClick={() => { setMode('form'); setSubmitState('idle'); setEstimate(null); setKm(null); setPhone(''); }}
+        onClick={() => { setMode('form'); setSubmitState('idle'); setEstimate(null); setKm(null); setPhoneE164(''); }}
         className="mt-5 rounded-lg px-5 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50"
       >
         Создать новый расчёт
