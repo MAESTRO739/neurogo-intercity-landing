@@ -1,6 +1,7 @@
 import React from 'react';
 import { Car, Crown, Truck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from '../components/ui/button';
 
 const Pricing = () => {
   const carClasses = [
@@ -130,16 +131,17 @@ const Pricing = () => {
           >
             * Ожидание — 5₽/мин после 15 минут бесплатного ожидания.
           </motion.p>
-          <motion.a
-            href="#hero"
-            className="inline-block bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-8 py-4 rounded-lg hover:from-[#5433F5] hover:to-[#02A376] transition-colors font-medium shadow"
+          <motion.div
+            className="text-center"
             initial={{ y: 18, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            Рассчитать стоимость
-          </motion.a>
+            <Button size="lg" asChild className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white shadow hover:opacity-90">
+              <a href="#hero">Рассчитать стоимость</a>
+            </Button>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -100,8 +100,8 @@ const WhySection = () => {
             { icon: Award, title: 'Опыт', desc: 'Стаж работы водителей от 5 лет' },
           ].map((r, i) => (
             <motion.div
-              variants={{ hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1 } }}
-              transition={{ duration: 0.45 }}
+              variants={{ hidden: { y: 22, opacity: 0 }, show: { y: 0, opacity: 1 } }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
             >
               <Card key={i} className="h-full bg-white/[0.04] border-white/10 hover:border-white/20 transition-colors">
                 <CardContent className="p-6 text-center">
@@ -118,10 +118,10 @@ const WhySection = () => {
 
         {/* Add-ons — dark chip panel */}
         <motion.div
-          initial={{ y: 48, opacity: 0 }}
+          initial={{ y: 22, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
         >
           <Card className="bg-white/[0.04] border-white/10">
             <CardContent className="p-5 md:p-6">
