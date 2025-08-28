@@ -19,9 +19,10 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "attached_assets"),
     },
   },
-  root: path.resolve(__dirname, "src"),
+  // Use the project root (default) so Vercel's Vite detection works without extra config.
+  // Keep standard dist output so Vercel serves /dist automatically.
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   }
 });
