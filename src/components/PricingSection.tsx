@@ -1,7 +1,8 @@
 import React from 'react';
-import { Car, Crown, Truck } from 'lucide-react';
+import { Car, Crown, Truck, Coins} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
+import { Feather, Hairline } from './ui/section-divider';
 
 const Pricing = () => {
   const carClasses = [
@@ -33,7 +34,25 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-16 lg:py-24 bg-[#0A0E22]">
+    <section id="pricing" className="pb-20 bg-[#0A0E22]">
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute inset-0" style={{ background:'#0A0E22' }} />
+        <div className="absolute inset-0"
+            style={{ background:'linear-gradient(180deg,#0A0E22 0%,#0B122B 50%,#0A0E22 100%)' }} />
+        <div className="absolute inset-0"
+            style={{ backgroundImage:[
+              'radial-gradient(820px 420px at 16% 10%, rgba(123,97,255,0.16), transparent 62%)',
+              'radial-gradient(900px 520px at 84% 76%, rgba(0,230,168,0.12), transparent 64%)'
+            ].join(',') }} />
+        <div className="absolute inset-0"
+            style={{ mixBlendMode:'screen', opacity:.10,
+                      background:'linear-gradient(100deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,.05) 72%,rgba(255,255,255,0) 100%)' }} />
+        <div className="absolute inset-0"
+            style={{ opacity:.03,
+                      backgroundImage:'radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px)',
+                      backgroundSize:'3px 3px' }} />
+      </div>
+      <Hairline />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -42,6 +61,16 @@ const Pricing = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          <motion.div
+            className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl
+                      bg-gradient-to-br from-[#7B61FF] to-[#00E6A8] text-white shadow-lg shadow-black/30"
+            initial={{ y: 24, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <Coins className="h-10 w-10" />
+          </motion.div>
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Тарифы <span className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] bg-clip-text text-transparent">поездок</span>
           </h2>
@@ -79,7 +108,7 @@ const Pricing = () => {
                     viewport={{ once: true, amount: 0.6 }}
                     transition={{ duration: 0.35, ease: 'easeOut', delay: 0.15 }}
                   >
-                    <span className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-6 py-1.5 rounded-full text-sm font-medium shadow">
+                    <span className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-6 py-1 rounded-full text-sm font-medium shadow">
                       Популярный
                     </span>
                   </motion.div>

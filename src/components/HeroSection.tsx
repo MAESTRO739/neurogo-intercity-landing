@@ -2,14 +2,11 @@ import { Button } from '../components/ui/button';
 import { Phone, MessageCircle } from 'lucide-react';
 import BookingForm from './BookingForm';
 import PromoBar from './PromoBar';
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import RotatingWord from '../components/ui/RotatingWord';
+import RotatingWord from './ui/rotating-word';
+import { Feather } from './ui/section-divider';
 
 const HeroSection = () => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
   const handlePhoneCall = () => (window.location.href = 'tel:+78003000000');
   const handleWhatsApp = () =>
     window.open('https://wa.me/79011000011?text=Здравствуйте! Хочу заказать поездку через NeuroGO', '_blank');
@@ -22,6 +19,8 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-black/50" /> {/* veil for readability */}
         <div className="absolute top-10 left-10 w-32 h-32 gradient-primary rounded-full blur-3xl opacity-40" />
         <div className="absolute bottom-10 right-10 w-40 h-40 gradient-secondary rounded-full blur-3xl opacity-40" />
+
+        <Feather at="bottom" to="#0A0E22" className="h-20" />
       </div>
 
       <div>

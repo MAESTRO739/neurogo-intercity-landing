@@ -1,18 +1,21 @@
 import { Button } from '../components/ui/button';
 import { MessageCircle, Gift } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Feather, Hairline } from './ui/section-divider';
 
 const CTASection = () => {
-  const handleWhatsApp = () => {
-    window.open('https://wa.me/79011000011?text=Здравствуйте! Хочу задать вопрос по NeuroGO', '_blank');
-  };
+
+  const handleWhatsApp = () =>
+    window.open('https://wa.me/79011000011?text=Здравствуйте, у меня есть вопрос!', '_blank');
 
   // shared animation presets (aligned with other sections)
   const fadeUp = { hidden: { y: 24, opacity: 0 }, show: { y: 0, opacity: 1 } };
   const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
 
   return (
-    <section id="cta" className="relative overflow-hidden py-20">
+    <section id="cta" className="relative overflow-hidden pb-20">
+      <Feather at="top" to="#0A0E22" className="h-20" />
+      <Hairline />
       {/* Background — same stack as Hero */}
       <div className="absolute inset-0 -z-10">
         {/* base hero gradient */}

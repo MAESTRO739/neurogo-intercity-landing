@@ -2,6 +2,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Plane, Shield, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Hairline } from './ui/section-divider';
 
 const TransfersSection = () => {
   const airports = ['Домодедово', 'Шереметьево', 'Внуково', 'Жуковский', 'Остафьево'];
@@ -16,32 +17,21 @@ const TransfersSection = () => {
   const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
 
   return (
-    <section id="transfers" className="relative py-20 bg-[#0A0E22] overflow-hidden">
+    <section id="transfers" className="relative pb-20 bg-[#0A0E22] overflow-hidden">
       {/* Background (dark, techy, but calmer than Hero) */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* base wash */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,#0A0E22 0%,#0B122B 55%,#0A0E22 100%)' }} />
-        {/* offset glows */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              'radial-gradient(800px 380px at 12% 8%, rgba(123,97,255,0.12), transparent 62%),' +
-              'radial-gradient(760px 420px at 88% 70%, rgba(0,230,168,0.10), transparent 64%)',
-          }}
-        />
-        {/* soft sheen */}
-        <div
-          className="absolute inset-0"
-          style={{
-            mixBlendMode: 'screen',
-            opacity: 0.08,
-            background:
-              'linear-gradient(110deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0.04) 72%, rgba(255,255,255,0) 100%)',
-          }}
-        />
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute inset-0"
+            style={{ background:'linear-gradient(180deg,#0A0E22 0%,#0B122B 55%,#0A0E22 100%)' }} />
+        <div className="absolute inset-0"
+            style={{ backgroundImage:[
+              'radial-gradient(800px 380px at 12% 8%, rgba(123,97,255,0.12), transparent 62%)',
+              'radial-gradient(760px 420px at 88% 70%, rgba(0,230,168,0.10), transparent 64%)'
+            ].join(',') }} />
+        <div className="absolute inset-0"
+            style={{ mixBlendMode:'screen', opacity:.08,
+                      background:'linear-gradient(110deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,.04) 72%,rgba(255,255,255,0) 100%)' }} />
       </div>
-
+      <Hairline />
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

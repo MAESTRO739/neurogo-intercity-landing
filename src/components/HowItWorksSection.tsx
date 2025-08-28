@@ -1,6 +1,7 @@
 import { Card, CardContent } from '../components/ui/card';
-import { Phone, Car, MapPin } from 'lucide-react';
+import { Phone, Car, MapPin, Route } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Hairline } from './ui/section-divider';
 
 const HowItWorksSection = () => {
   const steps = [
@@ -32,35 +33,26 @@ const HowItWorksSection = () => {
   const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
 
   return (
-    <section id="how-it-works" className="relative py-20 bg-[#0A0E22] overflow-hidden">
+    <section id="how-it-works" className="relative pb-20 bg-[#0A0E22] overflow-hidden">
       {/* Background (techy but subtle) */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg,#0A0E22 0%, #0B122B 55%, #0A0E22 100%)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              'radial-gradient(780px 380px at 12% 10%, rgba(123,97,255,0.12), transparent 62%),' +
-              'radial-gradient(880px 420px at 88% 85%, rgba(0,230,168,0.10), transparent 64%)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            mixBlendMode: 'screen',
-            opacity: 0.08,
-            background:
-              'linear-gradient(112deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.04) 72%, rgba(255,255,255,0) 100%)',
-          }}
-        />
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute inset-0" style={{ background:'#0A0E22' }} />
+        <div className="absolute inset-0"
+            style={{ background:'linear-gradient(180deg,#0A0E22 0%,#0B122B 48%,#0A0E22 100%)' }} />
+        <div className="absolute inset-0"
+            style={{ backgroundImage:[
+              'radial-gradient(720px 340px at 12% 14%, rgba(123,97,255,0.10), transparent 62%)',
+              'radial-gradient(720px 300px at 88% 30%, rgba(0,230,168,0.08), transparent 64%)'
+            ].join(',') }} />
+        <div className="absolute inset-0"
+            style={{ mixBlendMode:'screen', opacity:.08,
+                      background:'linear-gradient(95deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,.04) 76%,rgba(255,255,255,0) 100%)' }} />
+        <div className="absolute inset-0"
+            style={{ opacity:.035,
+                      backgroundImage:'linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px)',
+                      backgroundSize:'72px 72px,72px 72px' }} />
       </div>
-
+      <Hairline />
       <div className="container mx-auto px-4">
         {/* Heading */}
         <motion.div
@@ -70,6 +62,16 @@ const HowItWorksSection = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
+          <motion.div
+            className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl
+                      bg-gradient-to-br from-[#7B61FF] to-[#00E6A8] text-white shadow-lg shadow-black/30"
+            initial={{ y: 24, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <Route className="h-10 w-10" />
+          </motion.div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             Как это{' '}
             <span className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] bg-clip-text text-transparent">

@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useMotionValue } from 'framer-motion';
+import { Hairline } from './ui/section-divider';
 
 const TestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,20 +23,22 @@ const TestimonialsSection = () => {
   const x = useMotionValue(0);
 
   return (
-    <section id="testimonials" className="relative py-20 bg-[#0A0E22] overflow-hidden">
+    <section id="testimonials" className="relative pb-20 bg-[#0A0E22] overflow-hidden">
       {/* background wash + very subtle glows */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,#0A0E22 0%,#0B122B 55%,#0A0E22 100%)' }} />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              'radial-gradient(700px 320px at 12% 12%, rgba(123,97,255,0.10), transparent 62%),' +
-              'radial-gradient(820px 360px at 88% 80%, rgba(0,230,168,0.08), transparent 64%)',
-          }}
-        />
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute inset-0" style={{ background:'#0A0E22' }} />
+        <div className="absolute inset-0"
+            style={{ background:'linear-gradient(180deg,#0A0E22 0%,#0B122B 52%,#0A0E22 100%)' }} />
+        <div className="absolute inset-0"
+            style={{ backgroundImage:[
+              'radial-gradient(700px 320px at 14% 18%, rgba(123,97,255,0.09), transparent 60%)',
+              'radial-gradient(760px 360px at 86% 80%, rgba(0,230,168,0.08), transparent 64%)'
+            ].join(',') }} />
+        <div className="absolute inset-0"
+            style={{ mixBlendMode:'screen', opacity:.06,
+                      background:'linear-gradient(100deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,.03) 75%,rgba(255,255,255,0) 100%)' }} />
       </div>
-
+      <Hairline />
       <div className="container mx-auto px-4">
         {/* Heading */}
         <motion.div
@@ -45,15 +48,22 @@ const TestimonialsSection = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
+          <motion.div
+            className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl
+                      bg-gradient-to-br from-[#7B61FF] to-[#00E6A8] text-white shadow-lg shadow-black/30"
+            initial={{ y: 24, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <Quote className="h-10 w-10" />
+          </motion.div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             Отзывы{' '}
             <span className="bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] bg-clip-text text-transparent">
               наших клиентов
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
-            Более 500 довольных пассажиров каждый месяц
-          </p>
         </motion.div>
 
         {/* Slider */}
@@ -84,11 +94,6 @@ const TestimonialsSection = () => {
                   <div key={idx} className="w-full flex-shrink-0 px-2 sm:px-4">
                     <Card className="mx-auto max-w-2xl bg-white/[0.04] border border-white/10">
                       <CardContent className="p-8 text-center">
-                        <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-xl
-                                        bg-gradient-to-br from-[#7B61FF] to-[#00E6A8] text-white/90 opacity-90">
-                          <Quote className="w-6 h-6" />
-                        </div>
-
                         <div className="flex justify-center mb-4">
                           {Array.from({ length: t.rating }).map((_, i) => (
                             <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />

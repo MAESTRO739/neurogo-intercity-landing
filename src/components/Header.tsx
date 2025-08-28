@@ -6,6 +6,8 @@ import logo from "../assets/logo.png";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const handlePhoneCall = () => (window.location.href = 'tel:+78003000000');
+
   const navigation = [
     { name: 'Почему Мы', href: '#why' },
     { name: 'Тарифы', href: '#pricing' },
@@ -29,7 +31,7 @@ const Header = () => {
     <header
       className={`sticky top-0 left-0 right-0 z-50 border-b ${
       atTop
-        ? 'bg-gradient-to-r from-[#070A1A] via-[#10142a] to-[#070A1A]'
+        ? 'bg-gradient-to-r from-[#05060F] via-[#0B0F1E] to-[#05060F]'
         : 'bg-gradient-to-r from-black/60 via-[#10142a]/60 to-black/60 backdrop-blur-md'
       } border-white/10`}
     >
@@ -37,10 +39,10 @@ const Header = () => {
       <div className="flex items-center justify-between h-16">
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2">
-        <img src={logo} alt="NeuroGO" className="h-8" />
-        <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] bg-clip-text text-transparent">
-          NeuroGO
-        </span>
+          <img src={logo} alt="NeuroGO" className="h-8" />
+          <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] bg-clip-text text-transparent">
+            NeuroGO
+          </span>
         </a>
 
         {/* Desktop Nav */}
@@ -61,6 +63,7 @@ const Header = () => {
         <Button
           size="lg"
           className="flex items-center bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-5 py-2 rounded-lg shadow hover:opacity-90"
+          onClick={handlePhoneCall}
         >
           <Phone className="w-4 h-4" />
           +7 (800) 300-00-00
@@ -91,11 +94,12 @@ const Header = () => {
           </a>
           ))}
           <Button
-          size="lg"
-          className="flex items-center bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-5 py-2 rounded-lg shadow hover:opacity-90"
+            size="lg"
+            className="flex items-center bg-gradient-to-r from-[#7B61FF] to-[#00E6A8] text-white px-5 py-2 rounded-lg shadow hover:opacity-90"
+            onClick={handlePhoneCall}
           >
           <Phone className="w-4 h-4" />
-          +7 (800) 300-00-00
+            +7 (800) 300-00-00
           </Button>
         </nav>
         </div>
