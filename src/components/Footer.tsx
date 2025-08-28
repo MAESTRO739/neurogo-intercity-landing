@@ -101,7 +101,7 @@ const Footer = () => {
         <div className="border-t border-white/10 mt-12 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
             <div className="flex items-center gap-2">
-              © 2024 NeuroGO. Все права защищены.
+              © {new Date().getFullYear()} NeuroGO. Все права защищены.
             </div>
             <div>
               Работаем 24/7
