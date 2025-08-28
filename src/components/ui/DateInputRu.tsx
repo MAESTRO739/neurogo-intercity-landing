@@ -10,6 +10,51 @@ type Props = {
   inputClassName?: string;                  // tailwind classes for input
 };
 
+function clamp(n: number, lo: number, hi: number) { return Math.min(hi, Math.max(lo, n)); }
+
+function smartDateMask(raw: string, prev: string) {
+  // keep digits and dots, collapse repeats, max 2 dots
+  let s = raw.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.');
+  const dotCount = (s.match(/\./g) || []).length;
+  if (dotCount > 2) {
+    const firstTwo = s.split('.').slice(0, 3).join('.');
+    s = firstTwo;
+  }
+  const endsDot = s.endsWith('.');
+
+  const parts = s.split('.').slice(0,3);
+  let d = (parts[0] || '').slice(0,2);
+  let m = (parts[1] || '').slice(0,2);
+  let y = (parts[2] || '').slice(0,4);
+
+  // zero-pad completed segments
+  if (dotCount >= 1) if (d.length === 1) d = d.padStart(2,'0');
+  if (dotCount >= 2 || y) if (m.length === 1) m = m.padStart(2,'0');
+
+  // clamp quick-typed full segments
+  if (d.length === 2) d = String(clamp(+d || 0, 1, 31)).padStart(2,'0');
+  if (m.length === 2) m = String(clamp(+m || 0, 1, 12)).padStart(2,'0');
+
+  let out = d;
+  if (dotCount >= 1 || m) out += (out ? '.' : '') + m;
+  if (dotCount >= 2 || y) out += (out ? '.' : '') + y;
+  if (endsDot && !out.endsWith('.')) out += '.';
+  return out;
+}
+
+function tryFixAndToISO(text: string): string | null {
+  // Accept "d.m.yyyy" or "dd.mm.yyyy" (year must be 4 digits)
+  const m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(text);
+  if (!m) return null;
+  let dd = clamp(+m[1], 1, 31);
+  let mm = clamp(+m[2], 1, 12);
+  const yyyy = +m[3];
+  // final clamp by month length
+  dd = clamp(dd, 1, daysInMonth(yyyy, mm - 1));
+  const d = new Date(yyyy, mm - 1, dd); d.setHours(0,0,0,0);
+  return toISO(d);
+}
+
 function toISO(d: Date) {
   const dd = new Date(d); dd.setHours(0,0,0,0);
   return dd.toISOString().slice(0,10);
@@ -115,14 +160,14 @@ export default function DateInputRu({
   }
 
   function handleTextChange(v: string) {
-    setText(maskDateTyping(v));
+    setText(smartDateMask(v, text));
   }
 
   function handleBlur() {
     if (!text) { onChangeISO(''); return; }
-    const iso = parseRuToISO(text);
-    if (iso) commitISO(iso);
-    // if invalid: keep typed text; submit-time validation can handle it
+    const iso = tryFixAndToISO(text);
+    if (iso) commitISO(iso); // commit normalized + clamped date (will also clamp to min/max)
+    // if invalid, leave user text as-is; form submit can surface a single error banner
   }
 
   function pick(d: Date) {
