@@ -132,6 +132,19 @@ export default function DateInputRu({
     setView(d);
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!open) return;                     // only intercept when popover is open
+    if (e.key === 'Enter') {
+      e.preventDefault();                  // don't submit the form
+      const iso = parseRuToISO(text);
+      if (iso) commitISO(iso);             // commit typed value if valid
+      setOpen(false);                      // close either way
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setOpen(false);
+    }
+}
+
   const hasIconPad = leftIcon ? 'pl-10' : 'pl-4';
 
   return (
@@ -148,6 +161,7 @@ export default function DateInputRu({
         onChange={(e)=>handleTextChange(e.target.value)}
         onFocus={()=>setOpen(true)}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         className={`w-full ${hasIconPad} pr-9 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent ${inputClassName}`}
       />
       {/* right opener button (no native icon) */}

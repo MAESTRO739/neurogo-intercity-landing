@@ -62,6 +62,19 @@ export default function TimeInput24({
     if (p) commit(p);
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!open) return;                     // only when the dropdown is open
+    if (e.key === 'Enter') {
+      e.preventDefault();                  // avoid form submit
+      const parsed = parseHHMM(text);
+      if (parsed) commit(parsed);          // commit typed value if valid
+      else setOpen(false);                 // otherwise just close
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setOpen(false);
+    }
+}
+
   const hasIconPad = leftIcon ? 'pl-10' : 'pl-4';
 
   return (
@@ -78,6 +91,7 @@ export default function TimeInput24({
         onChange={(e)=>setText(maskTimeTyping(e.target.value))}
         onFocus={()=>setOpen(true)}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown} 
         className={`w-full ${hasIconPad} pr-9 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent ${inputClassName}`}
       />
       <button
