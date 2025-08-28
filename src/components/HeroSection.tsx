@@ -24,15 +24,6 @@ const HeroSection = () => {
         <div className="absolute bottom-10 right-10 w-40 h-40 gradient-secondary rounded-full blur-3xl opacity-40" />
       </div>
 
-      {/* bottom feather into Why */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-24"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(10,14,34,0) 0%, #0A0E22 100%)'
-        }}
-      />
-
       <div>
         <div className="absolute inset-x-0 top-0">
           <PromoBar />
