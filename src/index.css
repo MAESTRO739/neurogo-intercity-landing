@@ -145,3 +145,17 @@ All colors MUST be HSL.
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
+
+.ant-picker:hover {
+  border-color: #7C3AED !important;
+}
+
+.ant-picker-focused {
+  box-shadow: 0 0 0 2px #7C3AED  !important;
+  border: transparent !important;
+}
+
+/* Optional: change placeholder color */
+.ant-picker-input > input::placeholder {
+  color: #999999 !important;
+}

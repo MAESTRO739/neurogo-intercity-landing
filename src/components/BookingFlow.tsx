@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { MapPin, Calendar, Clock, Car, Tag, ChevronDown, ChevronUp, Phone, Loader2 } from 'lucide-react';
 import SuggestInput from '@/components/SuggestInput';
-import DateInputRu from '@/components/ui/DateInputRu';
-import TimeInput24 from '@/components/ui/TimeInput24';
+import { DatePicker, TimePicker } from 'antd';
+import dayjs, { Dayjs } from 'dayjs';
 import PhoneInputRu from './ui/phone-input-ru';
 
 
@@ -73,6 +73,31 @@ const BookingFlow = () => {
     const [y,m,d] = iso.split('-');
     return `${d}.${m}.${y}`;
   }
+
+  const todayStart = dayjs().startOf('day');
+  const maxDate    = dayjs().add(1, 'year').endOf('day');
+
+  const disabledDate = (current?: dayjs.Dayjs) =>
+    !!current && (current.isBefore(todayStart, 'day') || current.isAfter(maxDate, 'day'));
+
+  const makeDisabledTime = (selectedDateISO?: string) => {
+    const selected = selectedDateISO ? dayjs(selectedDateISO, 'YYYY-MM-DD') : null;
+
+    // AntD will call this with the panel time
+    return (_panelTime: Dayjs) => {
+      if (!selected) return {};
+      const now = dayjs();
+
+      // Only restrict when the chosen date is today
+      if (!selected.isSame(now, 'day')) return {};
+
+      const disabledHours = () => Array.from({ length: now.hour() }, (_, i) => i);
+      const disabledMinutes = (hour: number) =>
+        hour === now.hour() ? Array.from({ length: now.minute() + 1 }, (_, i) => i) : [];
+
+      return { disabledHours, disabledMinutes };
+    };
+  };
 
   async function handleEstimate(e: React.FormEvent) {
     e.preventDefault();
@@ -179,7 +204,7 @@ const BookingFlow = () => {
   // === STEP 1: WHITE FORM (unchanged visual style) ===
   if (mode === 'form') {
     return (
-      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 w-full max-w-[470px] mx-auto">
+      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 w-full lg:min-w-[420px] max-w-[600px] mx-auto px-4">
         <form onSubmit={handleEstimate} className="space-y-4 sm:space-y-6">
           <div className="space-y-4">
             <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
@@ -211,17 +236,41 @@ const BookingFlow = () => {
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <DateInputRu
-                valueISO={formData.date}
-                onChangeISO={(iso) => setFormData({ ...formData, date: iso })}
-                leftIcon={<Calendar className="h-5 w-5" />}
-              />
-              <TimeInput24
-                valueHHMM={formData.time}
-                onChangeHHMM={(hhmm) => setFormData({ ...formData, time: hhmm })}
-                leftIcon={<Clock className="h-5 w-5" />}
-                stepMinutes={15}
-              />
+              {/* DATE */}
+              <div className="relative">
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none z-40" />
+                <DatePicker
+                  value={formData.date ? dayjs(formData.date, 'YYYY-MM-DD') : null}
+                  onChange={(d) => setFormData({ ...formData, date: d ? d.format('YYYY-MM-DD') : '' })}
+                  format="DD.MM.YYYY"
+                  inputReadOnly
+                  allowClear
+                  suffixIcon={null}
+                  className="w-full pl-10"
+                  placeholder='Дата'
+                  style={{ height: 44 }}
+                  disabledDate={disabledDate}
+                />
+              </div>
+
+              {/* TIME */}
+              <div className="relative">
+                <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none z-40" />
+                <TimePicker
+                  value={formData.time ? dayjs(formData.time, 'HH:mm') : null}
+                  onChange={(t) => setFormData({ ...formData, time: t ? t.format('HH:mm') : '' })}
+                  format="HH:mm"
+                  minuteStep={5}
+                  inputReadOnly
+                  allowClear
+                  suffixIcon={null}
+                  className="w-full pl-10"
+                  style={{ height: 44 }}
+                  needConfirm={false}
+                  placeholder='Время'
+                  disabledTime={makeDisabledTime(formData.date)}
+                />
+              </div>
             </div>
 
             {/* Тариф + Детское кресло */}
@@ -231,7 +280,7 @@ const BookingFlow = () => {
                 <select
                   value={formData.carClass}
                   onChange={(e) => setFormData({ ...formData, carClass: e.target.value })}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent appearance-none bg-white focus:outline-none"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent appearance-none bg-white focus:outline-none hover:border-violet-500 cursor-pointer"
                 >
                   <option value="economy">Эконом</option>
                   <option value="comfort">Комфорт</option>

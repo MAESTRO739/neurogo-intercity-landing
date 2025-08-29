@@ -30,7 +30,7 @@ const HeroSection = () => {
 
         {/* Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-20">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-16 text-center lg:text-left">
             {/* Left */}
             <div className="text-white w-full lg:max-w-xl mx-auto">
               <motion.h1
