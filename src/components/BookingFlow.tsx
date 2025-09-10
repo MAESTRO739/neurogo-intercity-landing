@@ -204,7 +204,7 @@ const BookingFlow = () => {
   // === STEP 1: WHITE FORM (unchanged visual style) ===
   if (mode === 'form') {
     return (
-      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 w-full lg:min-w-[420px] max-w-[600px] mx-auto px-4">
+      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 w-full lg:min-w-[420px] max-w-[600px] mx-auto">
         <form onSubmit={handleEstimate} className="space-y-4 sm:space-y-6">
           <div className="space-y-4">
             <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
