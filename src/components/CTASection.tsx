@@ -106,7 +106,7 @@ const CTASection = () => {
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
             className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-3 py-2 text-sm text-white/90"
           >
-            Первая поездка -20% с промокодом <span className="mx-2 rounded bg-white/15 px-2 py-0.5 text-white">NEURO20</span>
+            Первая поездка -15% с промокодом <span className="mx-2 rounded bg-white/15 px-2 py-0.5 text-white">NEURO15</span>
           </motion.span>
         </motion.div>
       </div>
