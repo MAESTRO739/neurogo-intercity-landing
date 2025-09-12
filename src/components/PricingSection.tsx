@@ -2,7 +2,7 @@ import React from 'react';
 import { Car, Crown, Truck, Coins} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { Feather, Hairline } from './ui/section-divider';
+import { Hairline } from './ui/section-divider';
 
 const Pricing = () => {
   const carClasses = [

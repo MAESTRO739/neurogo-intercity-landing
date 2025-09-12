@@ -28,7 +28,7 @@ const BookingFlow = () => {
     childSeat: false,
   });
 
-  type Picked = { uri: string; label: string } | null;
+  type Picked = { uri: string; label: string; subtitle: string; locality: string } | null;
 
   const [fromPick, setFromPick] = useState<Picked>(null);
   const [toPick, setToPick] = useState<Picked>(null);
@@ -174,11 +174,15 @@ const BookingFlow = () => {
             uri:  fromPick?.uri || undefined,
             text: formData.from || undefined,
             label: (fromPick?.label || formData.from || '').trim(),
+            subtitle: (fromPick?.subtitle || '').trim(),
+            locality: (fromPick?.locality || '').trim(),
           },
           to:   {
             uri:  toPick?.uri || undefined,
             text: formData.to || undefined,
             label: (toPick?.label || formData.to || '').trim(),
+            subtitle: (toPick?.subtitle || '').trim(),
+            locality: (toPick?.locality || '').trim(),
           },
           datetimeLocal: `${formData.date}T${formData.time}`,
           carClass: formData.carClass,       // "economy" | "comfort" | "business" | "minivan"
@@ -218,7 +222,7 @@ const BookingFlow = () => {
                 setFormData({ ...formData, from: v });
                 if (fromPick && v !== fromPick.label) setFromPick(null);
               }}
-              onSelect={(item) => setFromPick({ uri: item.uri, label: item.title })}
+              onSelect={(item) => setFromPick({ uri: item.uri, label: item.title, subtitle: item.subtitle, locality: item.locality })}
               placeholder="Откуда"
               leftIcon={<MapPin className="h-5 w-5" />}
             />
@@ -230,7 +234,7 @@ const BookingFlow = () => {
                 setFormData({ ...formData, to: v });
                 if (toPick && v !== toPick.label) setToPick(null);
               }}
-              onSelect={(item) => setToPick({ uri: item.uri, label: item.title })}
+              onSelect={(item) => setToPick({ uri: item.uri, label: item.title, subtitle: item.subtitle, locality: item.locality })}
               placeholder="Куда"
               leftIcon={<MapPin className="h-5 w-5" />}
             />

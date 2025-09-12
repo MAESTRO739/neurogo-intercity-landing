@@ -5,8 +5,8 @@ import React, { useEffect, useRef, useState } from 'react';
 type Highlight = { b: number; e: number };
 type SuggestItem = {
   title: string;
-  subtitle?: string;
-  locality?: string;
+  subtitle: string;
+  locality: string;
   uri: string;
   titleHl?: Highlight[];
   subtitleHl?: Highlight[];
