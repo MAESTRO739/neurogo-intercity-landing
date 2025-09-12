@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 export default function DriverIntake() {
   const [token, setToken] = useState<string | null>(null);
   const [form, setForm] = useState({
-    name: '', phone: '', email: '', city: '',
+    name: '', phone: '', city: '',
     car_make: '', car_model: '', car_plate: '',
     child_seat: false, taxi_license: false,
   });
@@ -92,8 +92,6 @@ export default function DriverIntake() {
                value={form.name} onChange={e=>setForm({...form, name:e.target.value})}/>
         <input className="w-full border rounded px-3 py-2" placeholder="Телефон *"
                value={form.phone} onChange={e=>setForm({...form, phone:e.target.value})}/>
-        <input className="w-full border rounded px-3 py-2" placeholder="Email"
-               value={form.email||''} onChange={e=>setForm({...form, email:e.target.value})}/>
         <input className="w-full border rounded px-3 py-2" placeholder="Город"
                value={form.city||''} onChange={e=>setForm({...form, city:e.target.value})}/>
 
