@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
+import DriverIntake from "./components/DriverIntake";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ function RoutesWithAnalytics() {
   return (
     <Routes>
       <Route path="/" element={<Index />} />
+      <Route path="/driver-intake" element={<DriverIntake />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
