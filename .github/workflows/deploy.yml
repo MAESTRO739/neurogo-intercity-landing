@@ -1,0 +1,53 @@
+name: Deploy static site to Yandex Object Storage
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.YC_S3_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_S3_KEY_SECRET }}
+      AWS_DEFAULT_REGION: ru-central1
+      AWS_EC2_METADATA_DISABLED: "true"
+      AWS_ENDPOINT_URL_S3: ${{ secrets.YC_S3_ENDPOINT }}
+      BUCKET: www.neuro-go.ru
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      # 1) Upload all non-HTML assets with long cache (if you have any)
+      - name: Sync assets (immutable)
+        run: |
+          aws s3 sync . s3://$BUCKET \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "node_modules/*" \
+            --exclude ".*/**" \
+            --exclude "README.md" \
+            --exclude "package*.json" \
+            --exclude "pnpm-lock.yaml" \
+            --exclude "yarn.lock" \
+            --exclude "Dockerfile" \
+            --exclude ".dockerignore" \
+            --exclude ".env*" \
+            --exclude "*.html" \
+            --cache-control "public,max-age=31536000,immutable" \
+            --delete
+
+      # 2) Upload HTML with no-cache so users always get the latest
+      - name: Upload HTML (no-cache)
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          for f in **/*.html; do
+            aws s3 cp "$f" "s3://$BUCKET/$f" --cache-control "no-cache"
+          done
