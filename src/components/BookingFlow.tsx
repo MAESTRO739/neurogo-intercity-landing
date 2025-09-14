@@ -374,7 +374,7 @@ const BookingFlow = () => {
           </div>
           <div className="flex justify-between gap-3">
             <span className="text-gray-500">Детское кресло</span>
-            <span className="text-right">{formData.childSeat ? 'Да (+300₽)' : 'Нет'}</span>
+            <span className="text-right">{formData.childSeat ? 'Да' : 'Нет'}</span>
           </div>
           {km !== null && (
             <div className="flex justify-between gap-3">
