@@ -1,0 +1,63 @@
+name: Deploy Vite site to Yandex Object Storage
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.YC_S3_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_S3_KEY_SECRET }}
+      AWS_DEFAULT_REGION: ru-central1
+      AWS_EC2_METADATA_DISABLED: "true"
+      BUCKET: www.neuro-go.ru
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}  # if you need build-time envs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build (Vite)
+        run: npm run build
+
+      - name: Ensure AWS CLI v2
+        shell: bash
+        run: |
+          if ! command -v aws >/dev/null 2>&1; then
+            curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+            sudo apt-get update && sudo apt-get install -y unzip
+            unzip -q awscliv2.zip
+            sudo ./aws/install
+          fi
+          aws --version
+
+      # Deploy all non-HTML assets from ./dist with long cache
+      - name: Sync assets (immutable)
+        run: |
+          aws s3 sync ./dist "s3://$BUCKET" \
+            --endpoint-url "https://storage.yandexcloud.net" \
+            --exclude "*.html" \
+            --cache-control "public,max-age=31536000,immutable" \
+            --delete
+
+      # Deploy HTML with no-cache so updates show immediately
+      - name: Upload HTML (no-cache)
+        shell: bash
+        run: |
+          shopt -s nullglob
+          for f in dist/*.html dist/**/*.html; do
+            key="${f#dist/}"
+            aws s3 cp "$f" "s3://$BUCKET/$key" \
+              --endpoint-url "https://storage.yandexcloud.net" \
+              --cache-control "no-cache"
+          done
