@@ -19,12 +19,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install AWS CLI v2
+      - name: Ensure AWS CLI v2
+        shell: bash
         run: |
-          curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
-          sudo apt-get update && sudo apt-get install -y unzip
-          unzip -q awscliv2.zip
-          sudo ./aws/install
+          set -e
+          if command -v aws >/dev/null 2>&1; then
+            echo "AWS CLI present:"; aws --version
+            # update to latest quietly
+            curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+            unzip -q -o awscliv2.zip
+            sudo ./aws/install --update
+          else
+            curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+            sudo apt-get update && sudo apt-get install -y unzip
+            unzip -q awscliv2.zip
+            sudo ./aws/install
+          fi
           aws --version
 
       # 1) Upload all non-HTML assets with long cache (if you have any)
