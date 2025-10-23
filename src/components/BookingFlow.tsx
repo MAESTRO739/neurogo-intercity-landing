@@ -28,7 +28,7 @@ const BookingFlow = () => {
     childSeat: false,
   });
 
-  type Picked = { uri: string; label: string; subtitle: string; locality: string; canonical?: string } | null;
+  type Picked = { uri: string; label: string; subtitle: string; locality: string } | null;
 
   const [fromPick, setFromPick] = useState<Picked>(null);
   const [toPick, setToPick] = useState<Picked>(null);
@@ -222,15 +222,7 @@ const BookingFlow = () => {
                 setFormData({ ...formData, from: v });
                 if (fromPick && v !== fromPick.label) setFromPick(null);
               }}
-              onSelect={(item) =>
-                setFromPick({
-                  uri: item.uri,
-                  label: item.title,
-                  subtitle: item.subtitle,
-                  locality: item.locality,
-                  canonical: (item as any).canonical,
-                })
-              }
+              onSelect={(item) => setFromPick({ uri: item.uri, label: item.title, subtitle: item.subtitle, locality: item.locality })}
               placeholder="Откуда"
               leftIcon={<MapPin className="h-5 w-5" />}
             />
@@ -242,15 +234,7 @@ const BookingFlow = () => {
                 setFormData({ ...formData, to: v });
                 if (toPick && v !== toPick.label) setToPick(null);
               }}
-              onSelect={(item) =>
-                setFromPick({
-                  uri: item.uri,
-                  label: item.title,
-                  subtitle: item.subtitle,
-                  locality: item.locality,
-                  canonical: (item as any).canonical,
-                })
-              }
+              onSelect={(item) => setToPick({ uri: item.uri, label: item.title, subtitle: item.subtitle, locality: item.locality })}
               placeholder="Куда"
               leftIcon={<MapPin className="h-5 w-5" />}
             />
