@@ -9,26 +9,26 @@ const Pricing = () => {
     {
       icon: <Car className="h-8 w-8" />,
       name: 'Эконом',
-      pricePerKm: '35₽',
+      pricePerKm: '30₽',
       description: 'Седан эконом-класса',
     },
     {
       icon: <Car className="h-8 w-8" />,
       name: 'Комфорт',
-      pricePerKm: '45₽',
+      pricePerKm: '35₽',
       description: 'Седан комфорт-класса',
       popular: true,
     },
     {
       icon: <Crown className="h-8 w-8" />,
       name: 'Бизнес',
-      pricePerKm: '55₽',
+      pricePerKm: '45₽',
       description: 'Седан бизнес-класса',
     },
     {
       icon: <Truck className="h-8 w-8" />,
       name: 'Минивэн',
-      pricePerKm: '65₽',
+      pricePerKm: '50₽',
       description: 'Просторный минивэн',
     },
   ];
