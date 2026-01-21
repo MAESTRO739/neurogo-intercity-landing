@@ -3,10 +3,15 @@ import { MessageCircle, Gift } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Feather, Hairline } from './ui/section-divider';
 
+const TELEGRAM_URL = 'https://t.me/DispNeuroGo'; 
+
 const CTASection = () => {
 
-  const handleWhatsApp = () =>
-    window.open('https://wa.me/79011000011?text=Здравствуйте, у меня есть вопрос!', '_blank');
+  // const handleWhatsApp = () =>
+  //   window.open('https://wa.me/79011000011?text=Здравствуйте, у меня есть вопрос!', '_blank');
+
+  const handleTelegram = () =>
+    window.open(TELEGRAM_URL, '_blank');
 
   // shared animation presets (aligned with other sections)
   const fadeUp = { hidden: { y: 24, opacity: 0 }, show: { y: 0, opacity: 1 } };
@@ -80,12 +85,13 @@ const CTASection = () => {
             {/* Secondary */}
             <motion.div variants={fadeUp} transition={{ duration: 0.45, ease: 'easeOut' }}>
               <Button
-              size="lg"
-              onClick={handleWhatsApp}
-              className="w-full sm:w-auto gap-3 bg-gradient-to-r from-[#13C37B] to-[#00B88A] hover:from-[#10a96a] hover:to-[#009e7a] active:from-[#0d8a56] active:to-[#007a5a] text-white shadow-lg shadow-black/20 border-0"
+                size="lg"
+                onClick={handleTelegram}
+                // className="w-full sm:w-auto gap-3 bg-gradient-to-r from-[#13C37B] to-[#00B88A] hover:from-[#10a96a] hover:to-[#009e7a] active:from-[#0d8a56] active:to-[#007a5a] text-white shadow-lg shadow-black/20 border-0"
+                className="w-full sm:w-auto gap-3 bg-gradient-to-r from-[#229ED9] to-[#1C8CC5] hover:from-[#1E8BBF] hover:to-[#187AA9] active:from-[#176C96] active:to-[#145F83] text-white shadow-lg shadow-black/20 border-0"
               >
               <MessageCircle className="w-5 h-5" />
-              Задать вопрос
+              Задать вопрос в Telegram
               </Button>
             </motion.div>
           </div>

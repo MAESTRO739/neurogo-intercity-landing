@@ -6,10 +6,14 @@ import { motion } from 'framer-motion';
 import RotatingWord from './ui/rotating-word';
 import { Feather } from './ui/section-divider';
 
+const TELEGRAM_URL = 'https://t.me/DispNeuroGo'; 
+
 const HeroSection = () => {
   const handlePhoneCall = () => (window.location.href = 'tel:+78003000000');
-  const handleWhatsApp = () =>
-    window.open('https://wa.me/79011000011?text=Здравствуйте! Хочу заказать поездку через NeuroGO', '_blank');
+  // const handleWhatsApp = () =>
+  //   window.open('https://wa.me/79011000011?text=Здравствуйте! Хочу заказать поездку через NeuroGO', '_blank');
+  const handleTelegram = () =>
+    window.open(TELEGRAM_URL, '_blank');
 
   return (
     <section id="hero" className="relative min-h-[calc(100vh-64px)] flex items-center justify-center overflow-hidden">
@@ -76,11 +80,12 @@ const HeroSection = () => {
 
                 <Button
                   size="lg"
-                  onClick={handleWhatsApp}
-                  className="w-full sm:w-auto gap-3 bg-gradient-to-r from-[#13C37B] to-[#00B88A] hover:from-[#10a96a] hover:to-[#009e7a] active:from-[#0d8a56] active:to-[#007a5a] text-white shadow-lg shadow-black/20"
+                  onClick={handleTelegram}
+                  // className="w-full sm:w-auto gap-3 bg-gradient-to-r from-[#13C37B] to-[#00B88A] hover:from-[#10a96a] hover:to-[#009e7a] active:from-[#0d8a56] active:to-[#007a5a] text-white shadow-lg shadow-black/20"
+                  className="w-full sm:w-auto gap-3 bg-gradient-to-r from-[#229ED9] to-[#1C8CC5] hover:from-[#1E8BBF] hover:to-[#187AA9] active:from-[#176C96] active:to-[#145F83] text-white shadow-lg shadow-black/20"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Заказать через WhatsApp
+                  Заказать через Telegram
                 </Button>
               </motion.div>
 

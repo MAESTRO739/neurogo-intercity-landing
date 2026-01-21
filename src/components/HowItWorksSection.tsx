@@ -9,7 +9,7 @@ const HowItWorksSection = () => {
       icon: Phone,
       number: '01',
       title: 'Заявка',
-      description: 'Позвоните нам, напишите в WhatsApp или заполните форму на сайте. Указывайте точные адреса и время.',
+      description: 'Позвоните нам, напишите в Telegram или заполните форму на сайте. Указывайте точные адреса и время.',
       badge: 'gradient-primary',
     },
     {

@@ -1,5 +1,7 @@
-import { Phone, MessageCircle, Mail, MapPin } from 'lucide-react';
+import { Phone, MessageCircle, Mail } from 'lucide-react';
 import logo from "../assets/logo.png";
+
+const TELEGRAM_URL = 'https://t.me/DispNeuroGo'; 
 
 const Footer = () => {
   const navigation = [
@@ -12,7 +14,8 @@ const Footer = () => {
   ];
 
   const handlePhoneCall = () => window.location.href = 'tel:+78003000000';
-  const handleWhatsApp = () => window.open('https://wa.me/79011000011', '_blank');
+  // const handleWhatsApp = () => window.open('https://wa.me/79011000011', '_blank');
+  const handleTelegram = () => window.open(TELEGRAM_URL, '_blank');
   const handleEmail = () => window.location.href = 'mailto:info@neuro-go.ru';
 
   return (
@@ -35,7 +38,7 @@ const Footer = () => {
             <div className="flex gap-3">
               {[ 
                 { icon: Phone, onClick: handlePhoneCall },
-                { icon: MessageCircle, onClick: handleWhatsApp },
+                { icon: MessageCircle, onClick: handleTelegram },
                 { icon: Mail, onClick: handleEmail }
               ].map(({ icon: Icon, onClick }, i) => (
                 <button
@@ -77,14 +80,15 @@ const Footer = () => {
                 </a>
               </div>
                 <div className="flex items-center gap-3">
-                  <MessageCircle className="w-5 h-5 text-[#00E6A8]" />
+                  {/* <MessageCircle className="w-5 h-5 text-[#00E6A8]" /> */}
+                  <MessageCircle className="w-5 h-5 text-[#229ED9]" />
                   <a
-                    href="https://wa.me/79011000011"
+                    href={TELEGRAM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors"
                   >
-                    WhatsApp
+                    Telegram
                   </a>
                 </div>
               <div className="flex items-center gap-3">
